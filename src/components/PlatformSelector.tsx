@@ -1,7 +1,12 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import usePlatforms from '../hooks/usePlatForms'
+import { Platform } from '../hooks/useGames'
 
-const PlatformSelector = () => {
+interface Props {
+    onSelectPlatform: (platform: Platform) => void
+}
+
+const PlatformSelector = ({ onSelectPlatform }: Props) => {
 
     const {data, error} = usePlatforms()
     if (error) {
@@ -11,7 +16,7 @@ const PlatformSelector = () => {
     <Menu>
         <MenuButton as={Button}>Platforms</MenuButton>
         <MenuList>
-            {data.map(p => <MenuItem key={p.id}>{p.name}</MenuItem>)}
+            {data.map(p => <MenuItem onClick={() => onSelectPlatform(p)} key={p.id}>{p.name}</MenuItem>)}
         </MenuList>
     </Menu>
   )
